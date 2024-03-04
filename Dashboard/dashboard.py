@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sea
+import streamlit as st
 
 data = pd.read_csv('data/order_reviews_dataset.csv')
 print(data.head())
@@ -87,3 +88,4 @@ plt.ylim(0, 5)  # Memastikan batas y mulai dari 0 hingga 5
 plt.xticks(rotation=45)  # Putar label sumbu x agar lebih mudah dibaca
 plt.grid(True)
 plt.show()
+
