@@ -11,13 +11,13 @@ data = pd.read_csv(csv_url)
 #Display the first few rows of the DataFrame
 print(data.head())
 
-# Hitung rata-rata skor ulasan
+# Calculate the average review score
 mean_review_score = data['review_score'].mean()
 
-# Tampilkan judul aplikasi
+# Show the application title
 st.title('Distribution of Review Scores')
 
-# Tampilkan histogram menggunakan Seaborn tanpa KDE dan garis tepi
+# show histogram
 plt.figure(figsize=(8, 6))
 sns.histplot(data['review_score'], bins=5, kde=False, color='skyblue')
 plt.axvline(mean_review_score, color='red', linestyle='dashed', linewidth=1, label=f'Mean Score: {mean_review_score:.2f}')
@@ -28,7 +28,7 @@ plt.legend()
 plt.grid(True)
 st.pyplot(plt)
 
-# Tampilkan rata-rata skor ulasan
+# Show average review score
 st.write(f"Mean Review Score: {mean_review_score:.2f}")
 
 
@@ -67,7 +67,6 @@ plt.ylabel('Count / Percentage Change')
 plt.title('Review Count and Percentage Change by Year')
 plt.xticks(rotation=45)
 plt.legend()
-
 
 # Display the plot
 st.pyplot(plt)
