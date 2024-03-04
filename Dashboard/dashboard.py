@@ -3,6 +3,65 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sea
 
+data = pd.read_csv('/content/order_reviews_dataset.csv')
+print(data.head())
+
+#Melihat dimensi data
+print("Jumlah baris dan kolom:", data.shape)
+
+#Melihat tipe data dari setiap kolom
+print(data.dtypes)
+
+#Memeriksa nilai yang hilang atau tidak valid
+print(data.isnull().sum())
+
+#Memilih kolom yang diperlukan
+data_selected = data[['review_score', 'review_creation_date']]
+
+#Menampilkan lima baris pertama dari data/kolom yang dipilih
+print(data_selected.head())
+
+#Melihat dimensi data
+print("Jumlah baris dan kolom sebelum cleansing:", data.shape)
+
+#Melihat tipe data dari setiap kolom
+print("\nTipe data dari setiap kolom sebelum cleansing:")
+print(data.dtypes)
+
+#Memeriksa nilai yang hilang atau tidak valid
+print("\nJumlah nilai yang hilang atau tidak valid sebelum cleansing:")
+print(data.isnull().sum())
+
+#Memilih hanya kolom yang diperlukan
+data_selected = data[['review_score', 'review_creation_date']]
+
+#Menampilkan lima baris pertama dari data yang dipilih sebelum cleansing
+print("\nLima baris pertama dari data yang dipilih sebelum cleansing:")
+print(data_selected.head())
+
+#Menghapus baris dengan nilai yang hilang
+data_cleaned = data_selected.dropna()
+
+#Menampilkan dimensi data setelah cleansing
+print("\nJumlah baris dan kolom setelah cleansing:", data_cleaned.shape)
+
+#Menampilkan lima baris pertama dari data yang dipilih setelah cleansing
+print("\nLima baris pertama dari data yang dipilih setelah cleansing:")
+print(data_cleaned.head())
+
+#Menampilkan statistik deskriptif untuk data yang telah dibersihkan
+print("Statistik Deskriptif untuk review_score:")
+print(data_cleaned['review_score'].describe())
+
+#Mengonversi kolom review_creation_date menjadi tipe data datetime
+data_cleaned['review_creation_date'] = pd.to_datetime(data_cleaned['review_creation_date'])
+
+#Menampilkan statistik deskriptif untuk kolom review_creation_date
+print("\nStatistik Deskriptif untuk review_creation_date:")
+print(data_cleaned['review_creation_date'].describe())
+
+#Mengonversi kolom review_creation_date menjadi tipe data datetime
+data_cleaned['review_creation_date'] = pd.to_datetime(data_cleaned['review_creation_date'])
 
 #Visualisasi rata-rata skor ulasan
 average_score = data_cleaned['review_score'].mean()
@@ -17,7 +76,7 @@ plt.show()
 
 #Visualisasi tren skor ulasan dari waktu ke waktu
 data_cleaned.set_index('review_creation_date', inplace=True)
-monthly_average = data_cleaned.resample('ME').mean()
+monthly_average = data_cleaned.resample('M').mean()
 
 plt.figure(figsize=(10, 6))
 plt.plot(monthly_average.index, monthly_average['review_score'], marker='o', linestyle='-', color='skyblue')
