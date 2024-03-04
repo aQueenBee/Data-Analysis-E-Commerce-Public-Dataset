@@ -76,7 +76,7 @@ plt.show()
 
 #Visualisasi tren skor ulasan dari waktu ke waktu
 data_cleaned.set_index('review_creation_date', inplace=True)
-monthly_average = data_cleaned.resample('M').mean()
+monthly_average = data_cleaned.resample('ME').mean()
 
 plt.figure(figsize=(10, 6))
 plt.plot(monthly_average.index, monthly_average['review_score'], marker='o', linestyle='-', color='skyblue')
