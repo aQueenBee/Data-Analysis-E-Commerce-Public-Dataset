@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sea
 
-data = pd.read_csv('/content/order_reviews_dataset.csv')
+data = pd.read_csv('data/order_reviews_dataset.csv')
 print(data.head())
 
 #Melihat dimensi data
