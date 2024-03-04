@@ -3,8 +3,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sea
 
-#data = pd.read_csv('/content/order_reviews_dataset.csv')
-#print(data.head())
+data = pd.read_csv('Dashboard/main_data.csv')
+print(data.head())
 
 #Melihat dimensi data
 print("Jumlah baris dan kolom:", data.shape)
