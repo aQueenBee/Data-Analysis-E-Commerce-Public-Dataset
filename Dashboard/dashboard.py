@@ -1,91 +1,73 @@
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn as sea
+import seaborn as sns
 import streamlit as st
 
-data = pd.read_csv('data/order_reviews_dataset.csv')
+#Raw URL of the CSV file on GitHub
+csv_url = 'https://raw.githubusercontent.com/aQueenBee/Data-Analysis-E-Commerce-Public-Dataset/Data-Analysis-E-Commerce-Public-Dataset/Dashboard/main_data.csv'
+#Read the CSV file into a Pandas DataFrame
+data = pd.read_csv(csv_url)
+#Display the first few rows of the DataFrame
 print(data.head())
 
-#Melihat dimensi data
-print("Jumlah baris dan kolom:", data.shape)
+# Hitung rata-rata skor ulasan
+mean_review_score = data['review_score'].mean()
 
-#Melihat tipe data dari setiap kolom
-print(data.dtypes)
+# Tampilkan judul aplikasi
+st.title('Distribution of Review Scores')
 
-#Memeriksa nilai yang hilang atau tidak valid
-print(data.isnull().sum())
-
-#Memilih kolom yang diperlukan
-data_selected = data[['review_score', 'review_creation_date']]
-
-#Menampilkan lima baris pertama dari data/kolom yang dipilih
-print(data_selected.head())
-
-#Melihat dimensi data
-print("Jumlah baris dan kolom sebelum cleansing:", data.shape)
-
-#Melihat tipe data dari setiap kolom
-print("\nTipe data dari setiap kolom sebelum cleansing:")
-print(data.dtypes)
-
-#Memeriksa nilai yang hilang atau tidak valid
-print("\nJumlah nilai yang hilang atau tidak valid sebelum cleansing:")
-print(data.isnull().sum())
-
-#Memilih hanya kolom yang diperlukan
-data_selected = data[['review_score', 'review_creation_date']]
-
-#Menampilkan lima baris pertama dari data yang dipilih sebelum cleansing
-print("\nLima baris pertama dari data yang dipilih sebelum cleansing:")
-print(data_selected.head())
-
-#Menghapus baris dengan nilai yang hilang
-data_cleaned = data_selected.dropna()
-
-#Menampilkan dimensi data setelah cleansing
-print("\nJumlah baris dan kolom setelah cleansing:", data_cleaned.shape)
-
-#Menampilkan lima baris pertama dari data yang dipilih setelah cleansing
-print("\nLima baris pertama dari data yang dipilih setelah cleansing:")
-print(data_cleaned.head())
-
-#Menampilkan statistik deskriptif untuk data yang telah dibersihkan
-print("Statistik Deskriptif untuk review_score:")
-print(data_cleaned['review_score'].describe())
-
-#Mengonversi kolom review_creation_date menjadi tipe data datetime
-data_cleaned['review_creation_date'] = pd.to_datetime(data_cleaned['review_creation_date'])
-
-#Menampilkan statistik deskriptif untuk kolom review_creation_date
-print("\nStatistik Deskriptif untuk review_creation_date:")
-print(data_cleaned['review_creation_date'].describe())
-
-#Mengonversi kolom review_creation_date menjadi tipe data datetime
-data_cleaned['review_creation_date'] = pd.to_datetime(data_cleaned['review_creation_date'])
-
-#Visualisasi rata-rata skor ulasan
-average_score = data_cleaned['review_score'].mean()
-
+# Tampilkan histogram menggunakan Seaborn tanpa KDE dan garis tepi
 plt.figure(figsize=(8, 6))
-plt.bar(['Rata-rata Skor Ulasan'], [average_score], color='skyblue')
-plt.title('Rata-rata Skor Ulasan dari Seluruh Pesanan')
-plt.ylabel('Skor Rata-rata')
-plt.ylim(0, 5)  #Memastikan batas y mulai dari 0 hingga 5
-plt.text(0, average_score, f'{average_score:.2f}', ha='center', va='bottom', fontsize=12)
-plt.show()
-
-#Visualisasi tren skor ulasan dari waktu ke waktu
-data_cleaned.set_index('review_creation_date', inplace=True)
-monthly_average = data_cleaned.resample('ME').mean()
-
-plt.figure(figsize=(10, 6))
-plt.plot(monthly_average.index, monthly_average['review_score'], marker='o', linestyle='-', color='skyblue')
-plt.title('Tren Skor Ulasan dari Waktu ke Waktu')
-plt.xlabel('Tanggal Pembuatan Ulasan')
-plt.ylabel('Skor Rata-rata Ulasan Bulanan')
-plt.ylim(0, 5)  # Memastikan batas y mulai dari 0 hingga 5
-plt.xticks(rotation=45)  # Putar label sumbu x agar lebih mudah dibaca
+sns.histplot(data['review_score'], bins=5, kde=False, color='skyblue')
+plt.axvline(mean_review_score, color='red', linestyle='dashed', linewidth=1, label=f'Mean Score: {mean_review_score:.2f}')
+plt.title('Distribution of Review Scores')
+plt.xlabel('Review Score')
+plt.ylabel('Frequency')
+plt.legend()
 plt.grid(True)
-plt.show()
+st.pyplot(plt)
 
+# Tampilkan rata-rata skor ulasan
+st.write(f"Mean Review Score: {mean_review_score:.2f}")
+
+
+
+# Convert 'review_creation_date' to datetime format
+data['review_creation_date'] = pd.to_datetime(data['review_creation_date'])
+
+# Extract year from 'review_creation_date'
+data['year'] = data['review_creation_date'].dt.year
+
+# Count the number of reviews for each year
+review_count_by_year = data['year'].value_counts().sort_index()
+
+# Calculate the percentage change in review count from the previous year
+review_count_change = review_count_by_year.pct_change().fillna(0) * 100
+
+# Display the title for the Streamlit app
+st.title('Review Count and Percentage Change by Year')
+
+# Create the plot using seaborn line plot with markers
+plt.figure(figsize=(10, 6))
+
+# Plot the review count by year
+sns.lineplot(x=review_count_by_year.index, y=review_count_by_year.values, marker='o', color='skyblue', label='Review Count')
+
+# Plot the percentage change from the previous year
+sns.lineplot(x=review_count_change.index, y=review_count_change.values, marker='o', color='red', label='Percentage Change (%)')
+
+# Annotate the points with count and percentage change values
+for i, count in enumerate(review_count_by_year.values):
+    plt.text(review_count_by_year.index[i], count, f'{count}', ha='right', va='bottom', color='black')
+    plt.text(review_count_change.index[i], review_count_change.values[i], f'{review_count_change.values[i]:.2f}%', ha='right', va='bottom', color='black')
+
+plt.xlabel('Year')
+plt.ylabel('Count / Percentage Change')
+plt.title('Review Count and Percentage Change by Year')
+plt.xticks(rotation=45)
+plt.legend()
+
+
+# Display the plot
+st.pyplot(plt)
