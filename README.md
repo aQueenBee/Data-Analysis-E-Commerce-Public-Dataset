@@ -18,7 +18,7 @@ Seaborn
 Instruksi Penggunaan:
 
 - Instalasi Python dan semua Library yang dibutuhkan.
-- Unduh dataset ulasan pelanggan dari github yang sudah disediakan order_reviews_dataset.csv.
+- Unduh dataset ulasan pelanggan dari github yang sudah disediakan di folder data-order_reviews_dataset.csv.
 - Jalankan notebook Python untuk melakukan analisis dan visualisasi data.
 - Ikuti instruksi yang diberikan di setiap sel kode untuk memahami langkah-langkah analisis yang dilakukan.
 
