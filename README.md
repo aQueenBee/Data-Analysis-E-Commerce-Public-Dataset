@@ -1,26 +1,15 @@
 # Data-Analysis-E-Commerce-Public-Dataset
-Proyek ini adalah analisis data yang bertujuan untuk memahami umpan balik pelanggan dari sebuah platform e-commerce berdasarkan ulasan yang diberikan. Dataset yang digunakan dalam proyek ini berisi informasi tentang skor ulasan pelanggan dan tanggal pembuatan ulasan. Melalui analisis ini, saya bertujuan untuk melihat rata-rata skor ulasan, serta tren fluktuasi skor ulasan dari waktu ke waktu.
+This project is a data analysis that aims to understand the customer feedback of an e-commerce platform based on the review scores given. The dataset used in this project contains information about customer review scores and the date the reviews were created. Through this analysis, I aim to look at the average review score, as well as the trend of review score fluctuations over time.
 
-Fitur Utama:
+# Setup Environment
+conda create --name dashboard
+conda activate dashboard
+pip install pandas numpy matplotlib seaborn streamlit
 
-- Mengimpor dan membersihkan data ulasan pelanggan.
-- Memvisualisasikan rata-rata skor ulasan dari seluruh pesanan.
-- Menganalisis tren skor ulasan dari waktu ke waktu menggunakan data resampled bulanan.
-- Menghasilkan deskripsi statistik dari skor ulasan dan tanggal pembuatan ulasan.
+# Run Streamlit App
+streamlit run dashboard.py
 
-Teknologi yang Digunakan:
-Python
-Pandas
-NumPy
-Matplotlib
-Seaborn
-
-Instruksi Penggunaan:
-
-- Instalasi Python dan semua Library yang dibutuhkan.
-- Unduh dataset ulasan pelanggan dari github yang sudah disediakan di folder data-order_reviews_dataset.csv.
-- Jalankan notebook Python untuk melakukan analisis dan visualisasi data.
-- Ikuti instruksi yang diberikan di setiap sel kode untuk memahami langkah-langkah analisis yang dilakukan.
-
-Catatan:
-Proyek ini dibuat sebagai bagian dari pembelajaran dan eksplorasi analisis data menggunakan Python.
+Project:
+- Import and clean customer review data.
+- Visualize average product review scores.
+- Analyze review score trends over time using monthly resampled data.
