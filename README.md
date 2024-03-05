@@ -9,7 +9,7 @@ pip install pandas numpy matplotlib seaborn streamlit
 # Run Streamlit App
 streamlit run dashboard.py
 
-Project:
+# Project:
 - Import and clean customer review data.
 - Visualize average product review scores.
 - Analyze review score trends over time using monthly resampled data.
