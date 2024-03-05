@@ -1,12 +1,12 @@
 # Setup Environment
 
-conda create --name dashboard  
+conda create --name dashboard
 conda activate dashboard  
 pip install pandas numpy matplotlib seaborn streamlit
 
 # Run Streamlit App
 
-streamlit run dashboard.py
+streamlit run Dashboard/dashboard.py
 
 # Project:
 
