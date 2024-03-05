@@ -4,12 +4,13 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import streamlit as st
 
-#Raw URL of the CSV file on GitHub
-csv_url = 'https://raw.githubusercontent.com/aQueenBee/Data-Analysis-E-Commerce-Public-Dataset/Data-Analysis-E-Commerce-Public-Dataset/Dashboard/main_data.csv'
-#Read the CSV file into a Pandas DataFrame
-data = pd.read_csv(csv_url)
-#Display the first few rows of the DataFrame
-print(data.head())
+# URL dataset order items
+url_order_items = "https://github.com/aQueenBee/Data-Analysis-E-Commerce-Public-Dataset/blob/Data-Analysis-E-Commerce-Public-Dataset/data/order_items_dataset.csv"
+order_items = pd.read_csv(url_order_items)
+# URL dataset order reviews
+url_order_reviews = "https://github.com/aQueenBee/Data-Analysis-E-Commerce-Public-Dataset/blob/Data-Analysis-E-Commerce-Public-Dataset/data/order_reviews_dataset.csv"
+order_reviews = pd.read_csv(url_order_reviews)
+
 
 # Calculate the average review score
 mean_review_score = data['review_score'].mean()
